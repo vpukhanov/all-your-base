@@ -9,9 +9,10 @@ servers:
     options:
       "add-host": host.docker.internal:host-gateway
     labels:
-      traefik.http.routers.rails_recipes.entrypoints: websecure
-      traefik.http.routers.rails_recipes.rule: Host(`base.pukhanov.ru`)
-      traefik.http.routers.rails_recipes.tls.certresolver: letsencrypt
+      traefik.http.routers.base.rule: Host(`base.pukhanov.ru`)
+      traefik.http.routers.base_secure.entrypoints: websecure
+      traefik.http.routers.base_secure.rule: Host(`base.pukhanov.ru`)
+      traefik.http.routers.base_secure.tls.certresolver: letsencrypt
 
 registry:
   server: cr.selcloud.ru
@@ -39,3 +40,10 @@ traefik:
     certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
     certificatesResolvers.letsencrypt.acme.httpchallenge: true
     certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
+
+env:
+  secret:
+    - KAMAL_SERVER_IP
+    - KAMAL_SERVER_USER
+    - KAMAL_REGISTRY_USERNAME
+    - KAMAL_REGISTRY_PASSWORD
